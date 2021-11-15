@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnManager : Dice 
+public class TurnManager : MonoBehaviour
 {
     static Dictionary<string,List<TactictsMove>> units= new Dictionary<string, List<TactictsMove>>();
     static Queue<string> turnKey = new Queue<string>();

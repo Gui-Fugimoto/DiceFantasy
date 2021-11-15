@@ -29,7 +29,7 @@ public class NPCMove : TactictsMove
 
         if (!moving)
         {
-            FindNearestTarget();
+            FindNearestTargetNPC();
             CalculatePath();
             FindSelectableTiles();
             actualTargetTile.target = true;
@@ -47,7 +47,7 @@ public class NPCMove : TactictsMove
         FindPath(targetTile);
     }
 
-    void FindNearestTarget()
+    void FindNearestTargetNPC()
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
 
@@ -67,4 +67,11 @@ public class NPCMove : TactictsMove
 
         target = nearest;
     }
+
+    public void TakeDamage()
+    {
+        CurrentHealthStat = CurrentHealthStat - AttackStat;
+        CheckDeath();
+    }
+
 }
