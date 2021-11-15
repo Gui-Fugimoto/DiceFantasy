@@ -7,12 +7,21 @@ public class PlayerMove : TactictsMove
 {
     [SerializeField]
     Dice dice;
+
+    public int maxHealth=100;
+    public int currentHealth;
+
+    public HealthBar healthBar;
+
     GameObject target;
+
     //private static DiceSide diceSide;
     // Start is called before the first frame update
     void Start()
     {
         //dice.RollDice();
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
         Init();
         move = 0;
     }
@@ -22,6 +31,13 @@ public class PlayerMove : TactictsMove
     // Update is called once per frame
     void Update()
     {
+
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    TakeDamage(20);
+       // }
+
+
         Debug.DrawRay(transform.position, transform.forward);
 
         if (!turn)
@@ -45,6 +61,20 @@ public class PlayerMove : TactictsMove
         }
 
     }
+
+    //void TakeDamage(int damage)
+    //{
+    //   currentHealth -= damage;
+
+    //   healthBar.SetHealth(currentHealth);
+    // }
+
+    public void TakeDamage()
+    {
+        CurrentHealthStat = CurrentHealthStat - AttackStat;
+        CheckDeath();
+    }
+
     public void CheckMouse()
     {
         if (Input.GetMouseButtonUp(0))
@@ -66,10 +96,4 @@ public class PlayerMove : TactictsMove
             }
         }
     }
-    public void TakeDamage()
-    {
-        CurrentHealthStat = CurrentHealthStat - AttackStat;
-        CheckDeath();
-    }
-
 }
