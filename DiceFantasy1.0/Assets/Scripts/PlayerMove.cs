@@ -7,6 +7,7 @@ public class PlayerMove : TactictsMove
 {
     [SerializeField]
     Dice dice;
+    GameObject target;
     //private static DiceSide diceSide;
     // Start is called before the first frame update
     void Start()
@@ -65,4 +66,10 @@ public class PlayerMove : TactictsMove
             }
         }
     }
+    public void TakeDamage()
+    {
+        CurrentHealthStat = CurrentHealthStat - AttackStat;
+        CheckDeath();
+    }
+
 }

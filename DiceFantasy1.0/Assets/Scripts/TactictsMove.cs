@@ -17,6 +17,7 @@ public class TactictsMove : MonoBehaviour
     public float jumpHeight = 2;
     public float moveSpeed = 2;
     public float jumpVelocity = 4.5f;
+    public bool isPlayer;
 
     Vector3 velocity = new Vector3();// velocidade do mov player
     Vector3 heading = new Vector3();// direcao 
@@ -30,14 +31,30 @@ public class TactictsMove : MonoBehaviour
 
     public Tile actualTargetTile;
 
+
+    //stats:
+    public int MaxHealthStat = 10;
+    public int CurrentHealthStat = 1;
+    public int AttackStat = 4;
+    public int DefenseStat = 1;
+    public int RangeStat = 1;
+
+    GameObject target;
+    [SerializeField]
+    NPCMove NPCScript;
+    [SerializeField]
+    PlayerMove PlayerScript;
+
+
     public void Init()
     {
-
+        CheckIfPlayer();
         tiles = GameObject.FindGameObjectsWithTag("Tile");
 
         halfHeight = GetComponent<Collider>().bounds.extents.y;
 
         TurnManager.AddUnit(this);
+        MaxHealthStat = CurrentHealthStat;
     }
 
     public void GetCurrentTile()
@@ -103,8 +120,7 @@ public class TactictsMove : MonoBehaviour
                         process.Enqueue(tile);
                     }
                 }
-            }
-     
+            }     
         }
     }
 
@@ -162,7 +178,7 @@ public class TactictsMove : MonoBehaviour
         {
             RemoveSelectableTiles();
             moving = false;
-
+            CheckRange();
             TurnManager.EndTurn();
         }
     }
@@ -402,5 +418,103 @@ public class TactictsMove : MonoBehaviour
     public void EndTurn()
     {
         turn = false;
+    }
+
+    void FindNearestTarget()
+    {
+        if (isPlayer == true)
+        {
+            GameObject[] targets = GameObject.FindGameObjectsWithTag("NPC");
+            GameObject nearest = null;
+            float distance = Mathf.Infinity;
+
+            foreach (GameObject objs in targets)
+            {
+                float d = Vector3.Distance(transform.position, objs.transform.position);
+
+                if (d < distance)
+                {
+                    distance = d;
+                    nearest = objs;
+                }
+            }
+
+            target = nearest;
+        }
+        else if (isPlayer == false)
+        {
+            GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
+            GameObject nearest = null;
+            float distance = Mathf.Infinity;
+
+            foreach (GameObject objs in targets)
+            {
+                float d = Vector3.Distance(transform.position, objs.transform.position);
+
+                if (d < distance)
+                {
+                    distance = d;
+                    nearest = objs;
+                }
+            }
+
+            target = nearest;
+        }
+        
+        
+    }
+
+    void CheckRange()
+    {
+        FindNearestTarget();
+        float d = Vector3.Distance(transform.position, target.transform.position);
+
+        if (d <= RangeStat)
+        {
+            ShowAttackAction();
+        }
+    }
+
+    void ShowAttackAction()
+    {
+        //adicionarhud
+        AttackAction();
+    }
+    public void AttackAction()
+    {
+        FindNearestTarget();
+        if (isPlayer == true)
+        {
+            GameObject[] targets = GameObject.FindGameObjectsWithTag("NPC");
+            NPCScript.TakeDamage();
+        }
+        else if( isPlayer == false)
+        {
+            GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
+            PlayerScript.TakeDamage();
+        }
+
+
+    }
+
+
+    void CheckIfPlayer()
+    {
+        if (gameObject.tag == "Player")
+        {
+            isPlayer = true;
+        }
+        else if (gameObject.tag == "NPC")
+        {
+            isPlayer = false;
+        }                
+    }
+
+    public void CheckDeath()
+    {
+        if (CurrentHealthStat <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
