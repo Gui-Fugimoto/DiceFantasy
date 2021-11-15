@@ -54,13 +54,13 @@ public class TactictsMove : MonoBehaviour
         halfHeight = GetComponent<Collider>().bounds.extents.y;
 
         TurnManager.AddUnit(this);
-        MaxHealthStat = CurrentHealthStat;
+        CurrentHealthStat = MaxHealthStat;
     }
 
     public void GetCurrentTile()
     {
-            currentTile = GetTargetTile(gameObject);
-            currentTile.current = true;// identifica o tipo do tile
+        currentTile = GetTargetTile(gameObject);
+        currentTile.current = true;// identifica o tipo do tile
     }
 
     public Tile GetTargetTile(GameObject target)
@@ -69,7 +69,7 @@ public class TactictsMove : MonoBehaviour
         RaycastHit hit;
         Tile tile = null;
 
-        if(Physics.Raycast(target.transform.position, -Vector3.up, out hit, 1))
+        if (Physics.Raycast(target.transform.position, -Vector3.up, out hit, 1))
         {
             tile = hit.collider.GetComponent<Tile>();
         }
@@ -80,10 +80,10 @@ public class TactictsMove : MonoBehaviour
     public void ComputeAdjacencyLists(float jumpHeight, Tile target)
     {
 
-        tiles=GameObject.FindGameObjectsWithTag("Tile");
-        
+        tiles = GameObject.FindGameObjectsWithTag("Tile");
 
-        foreach(GameObject tile in tiles)
+
+        foreach (GameObject tile in tiles)
         {
             Tile t = tile.GetComponent<Tile>();
             t.FindNeighbors(jumpHeight, target);
@@ -92,7 +92,7 @@ public class TactictsMove : MonoBehaviour
 
     public void FindSelectableTiles()
     {
-        ComputeAdjacencyLists(jumpHeight,null);
+        ComputeAdjacencyLists(jumpHeight, null);
         GetCurrentTile();
 
         Queue<Tile> process = new Queue<Tile>();
@@ -120,7 +120,7 @@ public class TactictsMove : MonoBehaviour
                         process.Enqueue(tile);
                     }
                 }
-            }     
+            }
         }
     }
 
@@ -148,7 +148,7 @@ public class TactictsMove : MonoBehaviour
             //Calculate units position on top of the target file 
             target.y += halfHeight + t.GetComponent<Collider>().bounds.extents.y;
 
-            if(Vector3.Distance(transform.position, target) >= 0.05f)
+            if (Vector3.Distance(transform.position, target) >= 0.05f)
             {
                 bool jump = transform.position.y != target.y;
 
@@ -164,7 +164,7 @@ public class TactictsMove : MonoBehaviour
 
                 //Locomotion
                 transform.forward = heading;
-                transform.position += velocity*Time.deltaTime;
+                transform.position += velocity * Time.deltaTime;
             }
             else
             {
@@ -190,7 +190,7 @@ public class TactictsMove : MonoBehaviour
             currentTile.current = false;
             currentTile = null;
         }
-        foreach(Tile tile in selectableTiles)
+        foreach (Tile tile in selectableTiles)
         {
             tile.Reset();
         }
@@ -215,7 +215,7 @@ public class TactictsMove : MonoBehaviour
         {
             FallDownward(target);
         }
-        else if(jumpingUp)
+        else if (jumpingUp)
         {
             JumpUpward(target);
         }
@@ -251,7 +251,7 @@ public class TactictsMove : MonoBehaviour
             jumpingUp = true;
             movingEdge = false;
 
-            velocity = heading * moveSpeed/3.0f;
+            velocity = heading * moveSpeed / 3.0f;
 
             float difference = targetY - transform.position.y;
 
@@ -290,7 +290,7 @@ public class TactictsMove : MonoBehaviour
     }
     void MoveToEdge()
     {
-        if(Vector3.Distance(transform.position, jumpTarget) >= 0.05f)
+        if (Vector3.Distance(transform.position, jumpTarget) >= 0.05f)
         {
             SetHorizontalVelocity();
         }
@@ -308,7 +308,7 @@ public class TactictsMove : MonoBehaviour
     {
         Tile lowest = list[0];
 
-        foreach(Tile t in list)
+        foreach (Tile t in list)
         {
             if (t.f < lowest.f)
             {
@@ -338,7 +338,7 @@ public class TactictsMove : MonoBehaviour
         }
 
         Tile endTile = null;
-        for(int i=0; i<=move; i++)
+        for (int i = 0; i <= move; i++)
         {
             endTile = tempPath.Pop();
         }
@@ -352,7 +352,7 @@ public class TactictsMove : MonoBehaviour
         GetCurrentTile();
 
         List<Tile> openList = new List<Tile>();
-        List<Tile> closedList= new List<Tile>();
+        List<Tile> closedList = new List<Tile>();
 
         openList.Add(currentTile);
         //currentTile.parent=??
@@ -365,14 +365,14 @@ public class TactictsMove : MonoBehaviour
 
             closedList.Add(t);
 
-            if(t == target)
+            if (t == target)
             {
                 actualTargetTile = FindEndTile(t);
                 MoveToTile(actualTargetTile);
                 return;
             }
 
-            foreach(Tile tile in t.adjacencyList)
+            foreach (Tile tile in t.adjacencyList)
             {
                 if (closedList.Contains(tile))
                 {
@@ -380,7 +380,7 @@ public class TactictsMove : MonoBehaviour
                 }
                 else if (openList.Contains(tile))
                 {
-                    float tempG=t.g + Vector3.Distance(tile.transform.position, t.transform.position);
+                    float tempG = t.g + Vector3.Distance(tile.transform.position, t.transform.position);
 
                     if (tempG < tile.g)
                     {
@@ -460,8 +460,8 @@ public class TactictsMove : MonoBehaviour
 
             target = nearest;
         }
-        
-        
+
+
     }
 
     void CheckRange()
@@ -488,7 +488,7 @@ public class TactictsMove : MonoBehaviour
             GameObject[] targets = GameObject.FindGameObjectsWithTag("NPC");
             NPCScript.TakeDamage();
         }
-        else if( isPlayer == false)
+        else if (isPlayer == false)
         {
             GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
             PlayerScript.TakeDamage();
@@ -507,7 +507,7 @@ public class TactictsMove : MonoBehaviour
         else if (gameObject.tag == "NPC")
         {
             isPlayer = false;
-        }                
+        }
     }
 
     public void CheckDeath()
@@ -518,3 +518,5 @@ public class TactictsMove : MonoBehaviour
         }
     }
 }
+
+

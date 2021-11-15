@@ -10,11 +10,13 @@ public class NPCMove : TactictsMove
 
     GameObject target;
 
+    public int playerPos;
+
     // Start is called before the first frame update
     void Start()
     {
         Init();
-        move = Random.Range(1,7);
+        move=Random.Range(1,7);
     }
 
     // Update is called once per frame
@@ -29,7 +31,7 @@ public class NPCMove : TactictsMove
 
         if (!moving)
         {
-            FindNearestTargetNPC();
+            FindNearestTarget();
             CalculatePath();
             FindSelectableTiles();
             actualTargetTile.target = true;
@@ -47,7 +49,7 @@ public class NPCMove : TactictsMove
         FindPath(targetTile);
     }
 
-    void FindNearestTargetNPC()
+    void FindNearestTarget()
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
 
@@ -73,5 +75,4 @@ public class NPCMove : TactictsMove
         CurrentHealthStat = CurrentHealthStat - AttackStat;
         CheckDeath();
     }
-
 }
