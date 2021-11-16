@@ -11,22 +11,30 @@ public class HealthBar : MonoBehaviour
 
     public Image fill;
 
+    [SerializeField]
+    TactictsMove UnitStat;
+
     void Start()
+    {
+        SetMaxHealth();
+    }
+    void Update()
     {
         transform.LookAt(Camera.main.transform);
         transform.Rotate(0, 0, 0);
+        SetHealth();
     }
-    public void SetMaxHealth(int health)
+    public void SetMaxHealth()
     {
-        slider.maxValue = health;
-        slider.value = health;
+        slider.maxValue = UnitStat.MaxHealthStat;
+        slider.value = UnitStat.CurrentHealthStat;
 
         fill.color = gradient.Evaluate(1f);
     }
 
-    public void SetHealth(int health)
+    public void SetHealth()
     {
-        slider.value = health;
+        slider.value = UnitStat.CurrentHealthStat;
 
         fill.color = gradient.Evaluate(slider.normalizedValue);
     }

@@ -18,6 +18,7 @@ public class Dice : MonoBehaviour
 
     //private SpriteRenderer rend;
     //private Sprite[] imageSides;
+    public bool usedDice;
 
     void Start()
     {
@@ -30,9 +31,9 @@ public class Dice : MonoBehaviour
     }
     void Update()
     {
-       if(Input.GetKeyDown(KeyCode.Space))
+       if(Input.GetKeyDown(KeyCode.Space) && (usedDice == false))
        { 
-          RollDice();
+            RollDice();
        }
 
        if(rb.IsSleeping() && !hasLanded && thrown)
@@ -70,6 +71,7 @@ public class Dice : MonoBehaviour
         hasLanded = false;
         rb.useGravity = false;
         rb.isKinematic = false;
+        usedDice = false;
     }
 
     public void RollAgain()
@@ -91,6 +93,7 @@ public class Dice : MonoBehaviour
                 diceValue = side.sideValue;
                 //rend.sprite =imageSides[diceValue];
                 Debug.Log(diceValue + "has been rolled");
+                usedDice = true;
             }
         }
     }
