@@ -425,18 +425,21 @@ public class TactictsMove : MonoBehaviour
         if (isPlayer == true)
         {
             GameObject[] targets = GameObject.FindGameObjectsWithTag("NPC");
+            float[] Distances = new float[targets.Length];
             GameObject nearest = null;
             float distance = Mathf.Infinity;
-
+            int contador = 0;
             foreach (GameObject objs in targets)
             {
                 float d = Vector3.Distance(transform.position, objs.transform.position);
-
+                Distances[contador] = float.MaxValue;
                 if (d < distance)
                 {
+                    Distances[contador] = d;
                     distance = d;
                     nearest = objs;
                 }
+                contador++;
             }
 
             target = nearest;
@@ -517,6 +520,7 @@ public class TactictsMove : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }
 
 
