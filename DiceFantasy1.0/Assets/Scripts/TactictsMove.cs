@@ -437,7 +437,7 @@ public class TactictsMove : MonoBehaviour
         turn = false;
     }
 
-    void FindNearestTarget()
+    public void FindNearestTarget()
     {
         if (isPlayer == true)
         {
@@ -582,12 +582,12 @@ public class TactictsMove : MonoBehaviour
         FindNearestTarget();
         if (isPlayer == true)
         {
-            target.GetComponent<NPCMove>().EnemyAttackStat = AttackStat;
+            EnemyAttackStat = target.GetComponent<NPCMove>().AttackStat;
             Debug.Log("1Player");
         }
         if (isPlayer == false)
         {
-            target.GetComponent<PlayerMove>().EnemyAttackStat = AttackStat;
+            EnemyAttackStat = target.GetComponent<PlayerMove>().AttackStat;
             Debug.Log("1NPC");
 
         }
@@ -612,6 +612,8 @@ public class TactictsMove : MonoBehaviour
 
 
     }
+
+    
 }
 
 
