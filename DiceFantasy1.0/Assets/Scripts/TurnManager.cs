@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnManager : Dice 
+public class TurnManager : MonoBehaviour
 {
     static Dictionary<string,List<TactictsMove>> units= new Dictionary<string, List<TactictsMove>>();
     static Queue<string> turnKey = new Queue<string>();
@@ -41,13 +41,16 @@ public class TurnManager : Dice
         if (turnTeam.Count > 0)
         {
             turnTeam.Peek().BeginTurn();
+            Debug.Log("StartTurn");
         }
     }
 
     public static void EndTurn()
     {
         TactictsMove unit = turnTeam.Dequeue();
+
         unit.EndTurn();
+        Debug.Log("turn ended");
 
         if (turnTeam.Count > 0)
         {
@@ -82,5 +85,11 @@ public class TurnManager : Dice
         }
 
        list.Add(unit);
+    }
+
+    IEnumerator StartTurnDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        StartTurn();
     }
 }

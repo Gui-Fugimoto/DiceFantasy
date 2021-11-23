@@ -41,6 +41,7 @@ public class NPCMove : TactictsMove
             Move();
             move = Random.Range(1,7);
         }
+        
     }
 
     void CalculatePath()
@@ -72,7 +73,26 @@ public class NPCMove : TactictsMove
 
     public void TakeDamage()
     {
-        CurrentHealthStat = CurrentHealthStat - AttackStat;
+        //  DefineEnemyAttacker();
+        StartCoroutine(WaitAndSee());
+      //  CheckShieldStat();
+      // CurrentHealthStat -= SurplusDamage;
+      //  CheckDeath();
+    }
+    private IEnumerator WaitAndSee()
+    {
+        DefineEnemyAttacker();
+        //chama attackstat do player de enemyattackstat neste script
+        yield return new WaitForSeconds(0.6f);
+        CheckShieldStat();
+        
+        yield return new WaitForSeconds(0.5f);
+        
+        CurrentHealthStat -= SurplusDamage;
+        Debug.Log("3Player");
+        yield return new WaitForSeconds(0.5f);
         CheckDeath();
+        
+
     }
 }

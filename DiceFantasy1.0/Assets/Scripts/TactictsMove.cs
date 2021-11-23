@@ -36,8 +36,10 @@ public class TactictsMove : MonoBehaviour
     public int MaxHealthStat = 10;
     public int CurrentHealthStat = 1;
     public int AttackStat = 4;
-    public int DefenseStat = 1;
+    public int ShieldStat = 0;
     public int RangeStat = 1;
+    public int SurplusDamage;
+    public int EnemyAttackStat;
 
     GameObject target;
     [SerializeField]
@@ -45,7 +47,21 @@ public class TactictsMove : MonoBehaviour
     [SerializeField]
     PlayerMove PlayerScript;
 
+    public bool npcDead;
 
+    public bool playerLost;
+
+    [SerializeField]
+    LevelSystem level;
+
+    public int Script { get; private set; }
+
+    public bool canSelect;
+
+    [SerializeField]
+    ChoicesUI choices;
+
+    
     public void Init()
     {
         CheckIfPlayer();
@@ -176,10 +192,11 @@ public class TactictsMove : MonoBehaviour
         }
         else
         {
+            CheckRange();
             RemoveSelectableTiles();
             moving = false;
-            CheckRange();
             TurnManager.EndTurn();
+
         }
     }
 
@@ -411,8 +428,8 @@ public class TactictsMove : MonoBehaviour
 
     public void BeginTurn()
     {
-
-        turn = true;
+        Debug.Log("dota2");
+        StartCoroutine(DelayBeginTurn());
     }
 
     public void EndTurn()
@@ -474,13 +491,19 @@ public class TactictsMove : MonoBehaviour
 
         if (d <= RangeStat)
         {
-            ShowAttackAction();
+            canSelect = true;
+            ShowAttackActionHUD();
+        }
+        else
+        {
+            canSelect = false;
         }
     }
 
-    void ShowAttackAction()
+    void ShowAttackActionHUD()
     {
         //adicionarhud
+       // choices.Activate();
         AttackAction();
     }
     public void AttackAction()
@@ -488,16 +511,16 @@ public class TactictsMove : MonoBehaviour
         FindNearestTarget();
         if (isPlayer == true)
         {
-            GameObject[] targets = GameObject.FindGameObjectsWithTag("NPC");
+            GameObject target = GameObject.FindGameObjectWithTag("NPC");
             NPCScript.TakeDamage();
+            
         }
         else if (isPlayer == false)
         {
-            GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
+            GameObject target = GameObject.FindGameObjectWithTag("Player");
             PlayerScript.TakeDamage();
+            
         }
-
-
     }
 
 
@@ -515,12 +538,80 @@ public class TactictsMove : MonoBehaviour
 
     public void CheckDeath()
     {
+        Debug.Log("4");
         if (CurrentHealthStat <= 0)
         {
+            Debug.Log("mortinho");
+            if (!isPlayer)
+            {
+                npcDead = true;
+                level.KilledEnemy();
+                playerLost = false;
+            }
+            else if (isPlayer)
+            {
+                playerLost = true;
+            }
             Destroy(gameObject);
         }
     }
+    public void CheckMaxHealth()
+    {
+        if (CurrentHealthStat > MaxHealthStat)
+        {
+            CurrentHealthStat = MaxHealthStat;
+        }
+    }
+    public void CheckShieldStat()
+    {
+        if (EnemyAttackStat >= ShieldStat)
+        {
+            SurplusDamage = EnemyAttackStat - ShieldStat;
+            ShieldStat = 0;
+            Debug.Log("2");
+        }
+        else if (EnemyAttackStat < ShieldStat)
+        {
+            SurplusDamage = 0;
+            ShieldStat -= EnemyAttackStat;
+        }
+    }
 
+    public void DefineEnemyAttacker()
+    {
+        FindNearestTarget();
+        if (isPlayer == true)
+        {
+            target.GetComponent<NPCMove>().EnemyAttackStat = AttackStat;
+            Debug.Log("1Player");
+        }
+        if (isPlayer == false)
+        {
+            target.GetComponent<PlayerMove>().EnemyAttackStat = AttackStat;
+            Debug.Log("1NPC");
+
+        }
+
+        
+    }
+
+    public IEnumerator DelayBeginTurn()
+    {
+        
+        yield return new WaitForSeconds(3f);
+        turn = true;
+        Debug.Log("Dota3");
+        
+
+    }
+    public IEnumerator DelayEndTurn()
+    {
+
+        yield return new WaitForSeconds(3f);
+        turn = false;
+
+
+    }
 }
 
 
