@@ -8,7 +8,6 @@ public class PlayerMove : TactictsMove
     [SerializeField]
     Dice dice;
 
-    public HealthBar healthBar;
 
 
     //private static DiceSide diceSide;
@@ -20,6 +19,7 @@ public class PlayerMove : TactictsMove
        
         Init();
         move = 0;
+        ShieldStat = 0;
     }
 
 
@@ -28,7 +28,7 @@ public class PlayerMove : TactictsMove
     void Update()
     {
 
-
+        
 
         Debug.DrawRay(transform.position, transform.forward);
 
@@ -42,6 +42,7 @@ public class PlayerMove : TactictsMove
         {
             FindSelectableTiles();
             move = dice.diceValue;
+            AttackStat = dice.diceValue;
             CheckMouse();
         }
         else if(dice.hasLanded)
@@ -63,8 +64,11 @@ public class PlayerMove : TactictsMove
 
     public void TakeDamage()
     {
-        CurrentHealthStat = CurrentHealthStat - AttackStat;
-        CheckDeath();
+       // DefineEnemyAttacker();
+        StartCoroutine(WaitAndSee());
+       // CheckShieldStat();
+       // CurrentHealthStat -= SurplusDamage;
+      //  CheckDeath();
     }
 
     public void CheckMouse()
@@ -87,5 +91,22 @@ public class PlayerMove : TactictsMove
                 }
             }
         }
+    }
+
+    
+    private IEnumerator WaitAndSee()
+    {
+        DefineEnemyAttacker();
+        
+        yield return new WaitForSeconds(0.5f);
+        CheckShieldStat();
+        
+        yield return new WaitForSeconds(0.5f);
+        CurrentHealthStat -= SurplusDamage;
+        Debug.Log("3NPC");
+        yield return new WaitForSeconds(0.5f);
+        CheckDeath();
+        
+        
     }
 }
