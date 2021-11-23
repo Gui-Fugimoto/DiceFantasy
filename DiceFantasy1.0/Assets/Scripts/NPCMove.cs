@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class NPCMove : TactictsMove
 {
-    [SerializeField]
-    Dice dice;
+    
 
 
     GameObject target;
