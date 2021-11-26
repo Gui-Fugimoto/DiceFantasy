@@ -20,6 +20,8 @@ public class Dice : MonoBehaviour
     //private Sprite[] imageSides;
     public bool usedDice;
 
+    public GameObject diceCam;
+
     void Start()
     {
         //rend = GetComponent<SpriteRenderer>();
@@ -28,12 +30,15 @@ public class Dice : MonoBehaviour
         //rend.sprite = imageSides[5];
         initPosition = transform.position;
         rb.useGravity = false;
+
+        diceCam.SetActive(false);
     }
     void Update()
     {
        if(Input.GetKeyDown(KeyCode.Space) && (usedDice == false))
        { 
             RollDice();
+            //diceCam.SetActive(true);
        }
 
        if(rb.IsSleeping() && !hasLanded && thrown)
@@ -43,10 +48,13 @@ public class Dice : MonoBehaviour
             rb.isKinematic = true;
 
             SideValueCheck();
-       }
+
+            diceCam.SetActive(false);
+        }
        else if(rb.IsSleeping() && hasLanded && diceValue == 0)
        {
             RollAgain();
+            diceCam.SetActive(true);
        }
     }
 
@@ -54,6 +62,8 @@ public class Dice : MonoBehaviour
     {
         if(!thrown && !hasLanded)
         {
+            diceCam.SetActive(true);
+
             thrown = true;
             rb.useGravity = thrown;
             rb.AddTorque(Random.Range(0, 500), Random.Range(0, 500), Random.Range(0, 500));

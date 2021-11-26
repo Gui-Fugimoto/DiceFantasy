@@ -11,11 +11,14 @@ public class NPCMove : TactictsMove
 
     public int playerPos;
 
+    public GameObject enemyTurn;
+
     // Start is called before the first frame update
     void Start()
     {
         Init();
         move=Random.Range(1,7);
+        enemyTurn.SetActive(false);
     }
 
     // Update is called once per frame
@@ -25,6 +28,7 @@ public class NPCMove : TactictsMove
 
         if (!turn)
         {
+            enemyTurn.SetActive(false);
             return;
         }
 
@@ -37,6 +41,7 @@ public class NPCMove : TactictsMove
         }
         else
         {
+            enemyTurn.SetActive(true);
             Move();
             move = Random.Range(1,7);
         }
