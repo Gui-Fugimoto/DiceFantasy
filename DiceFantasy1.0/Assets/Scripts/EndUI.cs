@@ -7,7 +7,7 @@ using TMPro;
 public class EndUI : MonoBehaviour
 {
     public GameObject gameOver;
-    public GameObject nextLevel;
+    //public GameObject nextLevel;
 
     [SerializeField]
     TactictsMove tacticts;
@@ -15,11 +15,12 @@ public class EndUI : MonoBehaviour
     [SerializeField]
     PlayerMove player;
 
+
     // Start is called before the first frame update
     void Start()
     {
         gameOver.SetActive(false);
-        nextLevel.SetActive(false);
+        //nextLevel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -28,13 +29,13 @@ public class EndUI : MonoBehaviour
         if (tacticts.npcDead)
         {
             gameOver.SetActive(false);
-            nextLevel.SetActive(true);
+            //nextLevel.SetActive(true);
         }
 
         else if (player.CurrentHealthStat <= 0)
         {
             gameOver.SetActive(true);
-            nextLevel.SetActive(false);
+            //nextLevel.SetActive(false);
         }
     }
 }
