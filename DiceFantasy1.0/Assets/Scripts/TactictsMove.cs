@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TactictsMove : MonoBehaviour
 {
+
     public bool turn = false;
 
     List<Tile> selectableTiles = new List<Tile>();
@@ -196,7 +197,7 @@ public class TactictsMove : MonoBehaviour
             RemoveSelectableTiles();
             moving = false;
             TurnManager.EndTurn();
-
+            
         }
     }
 
