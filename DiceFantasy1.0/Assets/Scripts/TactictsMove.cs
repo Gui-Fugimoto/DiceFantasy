@@ -62,7 +62,9 @@ public class TactictsMove : MonoBehaviour
     [SerializeField]
     ChoicesUI choices;
 
-    
+    public AudioSource attackSFX;
+
+
     public void Init()
     {
         CheckIfPlayer();
@@ -513,6 +515,7 @@ public class TactictsMove : MonoBehaviour
         if (isPlayer == true)
         {
             GameObject target = GameObject.FindGameObjectWithTag("NPC");
+            attackSFX.Play();
             NPCScript.TakeDamage();
             
         }
