@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
    public void PlayGame()
    {
-        SceneManager.LoadScene("TTBRPG");
+        SceneManager.LoadScene("CutsceneIni");
    }
 
     public void QuitGame()

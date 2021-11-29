@@ -14,7 +14,7 @@ public class PlayerMove : TactictsMove
     public GameObject Dice1;
     public GameObject Dice2;
 
-
+    public AudioSource[] soundsPlayer;
 
 
     //private static DiceSide diceSide;
@@ -58,7 +58,7 @@ public class PlayerMove : TactictsMove
         else if(dice.hasLanded && diceUI.choosingIsDone == true)
         {
             Move();
-            
+            soundsPlayer[0].Play();// sfx movemento
             //move = dice.diceValue;
             //dice.Reset();
             //dice.RollAgain();
@@ -77,9 +77,10 @@ public class PlayerMove : TactictsMove
     {
        // DefineEnemyAttacker();
         StartCoroutine(WaitAndSee());
+        soundsPlayer[1].Play();// sfx dano
        // CheckShieldStat();
        // CurrentHealthStat -= SurplusDamage;
-      //  CheckDeath();
+       //  CheckDeath();
     }
 
     public void CheckMouse()
