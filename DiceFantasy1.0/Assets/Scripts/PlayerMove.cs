@@ -8,6 +8,9 @@ public class PlayerMove : TactictsMove
     [SerializeField]
     Dice dice;
 
+    [SerializeField]
+    UIDice diceUI;
+
     public GameObject Dice1;
     public GameObject Dice2;
 
@@ -36,24 +39,26 @@ public class PlayerMove : TactictsMove
         
 
         Debug.DrawRay(transform.position, transform.forward);
-
         if (!turn)
         {
             Dice1.GetComponent<Dice>().Reset();// se é o turno do inimigo dado retorna 
             Dice2.GetComponent<Dice>().Reset();
+            diceUI.GetComponent<UIDice>().ResetValues();
             return;
         }
 
-        if (!moving && dice.hasLanded)
+        if (!moving && dice.hasLanded && diceUI.choosingIsDone == true)
         {
             FindSelectableTiles();
-            move = Dice1.GetComponent<Dice>().diceValue;
-            AttackStat = Dice2.GetComponent<Dice>().diceValue;
+            move = diceUI.GetComponent<UIDice>().moveValueInUI;
+            AttackStat = diceUI.GetComponent<UIDice>().attackValueInUI;
+            ShieldStat = diceUI.GetComponent<UIDice>().shieldValueInUI;
             CheckMouse();
         }
-        else if(dice.hasLanded)
+        else if(dice.hasLanded && diceUI.choosingIsDone == true)
         {
             Move();
+            
             //move = dice.diceValue;
             //dice.Reset();
             //dice.RollAgain();
@@ -115,4 +120,6 @@ public class PlayerMove : TactictsMove
         
         
     }
+
+  
 }

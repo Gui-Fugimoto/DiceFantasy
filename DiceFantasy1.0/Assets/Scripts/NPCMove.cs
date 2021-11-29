@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPCMove : TactictsMove
 {
-    
+    public GameObject diceUI;
 
 
     GameObject target;
@@ -43,6 +43,7 @@ public class NPCMove : TactictsMove
         {
             enemyTurn.SetActive(true);
             Move();
+            diceUI.GetComponent<UIDice>().choosingIsDone = false;
             move = Random.Range(1,7);
         }
         

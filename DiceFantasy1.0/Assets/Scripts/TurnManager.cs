@@ -8,6 +8,7 @@ public class TurnManager : MonoBehaviour
     public static Queue<string> turnKey = new Queue<string>();
     public static Queue<TactictsMove> turnTeam = new Queue<TactictsMove>();
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +52,7 @@ public class TurnManager : MonoBehaviour
 
         unit.EndTurn();
         Debug.Log("turn ended");
+        
 
         if (turnTeam.Count > 0)
         {
