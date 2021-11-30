@@ -59,8 +59,6 @@ public class TactictsMove : MonoBehaviour
 
     public bool canSelect;
 
-    [SerializeField]
-    ChoicesUI choices;
 
     public AudioSource attackSFX;
 
@@ -427,6 +425,7 @@ public class TactictsMove : MonoBehaviour
 
         // what do you do if tha is not path to the target tile?
         Debug.Log("Path not found");
+        TurnManager.EndTurn();
     }
 
     public void BeginTurn()
@@ -487,7 +486,7 @@ public class TactictsMove : MonoBehaviour
 
     }
 
-    void CheckRange()
+    public void CheckRange()
     {
         FindNearestTarget();
         float d = Vector3.Distance(transform.position, target.transform.position);
@@ -514,16 +513,16 @@ public class TactictsMove : MonoBehaviour
         FindNearestTarget();
         if (isPlayer == true)
         {
-            GameObject target = GameObject.FindGameObjectWithTag("NPC");
+            //GameObject target = GameObject.FindGameObjectWithTag("NPC");
             attackSFX.Play();
-            NPCScript.TakeDamage();
+            target.GetComponent<NPCMove>().TakeDamage();
             
         }
         else if (isPlayer == false)
         {
-            GameObject target = GameObject.FindGameObjectWithTag("Player");
-            PlayerScript.TakeDamage();
-            
+            //GameObject target = GameObject.FindGameObjectWithTag("Player");
+            target.GetComponent<PlayerMove>().TakeDamage();
+
         }
     }
 
@@ -542,21 +541,22 @@ public class TactictsMove : MonoBehaviour
 
     public void CheckDeath()
     {
-        Debug.Log("4");
+        
         if (CurrentHealthStat <= 0)
         {
             Debug.Log("mortinho");
-            if (!isPlayer)
+            if (!isPlayer && npcDead == false)
             {
                 npcDead = true;
                 level.KilledEnemy();
-                playerLost = false;
+                TurnManager.EndTurn();
             }
             else if (isPlayer)
             {
                 playerLost = true;
             }
-            Destroy(gameObject);
+            DeactivateDeadEnemy();
+            //Destroy(gameObject);
         }
     }
     public void CheckMaxHealth()
@@ -616,7 +616,13 @@ public class TactictsMove : MonoBehaviour
 
 
     }
-
+    public void DeactivateDeadEnemy()
+    {
+        if (npcDead == true)
+        {
+            Destroy(gameObject);
+        }
+    }
     
 }
 

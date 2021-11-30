@@ -5,7 +5,7 @@ using UnityEngine;
 public class NPCMove : TactictsMove
 {
     public GameObject diceUI;
-
+    public bool stationaryEnemy;
 
     GameObject target;
 
@@ -17,7 +17,6 @@ public class NPCMove : TactictsMove
     void Start()
     {
         Init();
-        move=Random.Range(1,7);
         enemyTurn.SetActive(false);
     }
 
@@ -26,25 +25,25 @@ public class NPCMove : TactictsMove
     {
         Debug.DrawRay(transform.position, transform.forward);
 
-        if (!turn)
+        if (!turn && !npcDead)
         {
             enemyTurn.SetActive(false);
             return;
         }
 
-        if (!moving)
+        if (!moving && !npcDead)
         {
             FindNearestTarget();
             CalculatePath();
             FindSelectableTiles();
             actualTargetTile.target = true;
         }
-        else
+        else if (!npcDead)
         {
             enemyTurn.SetActive(true);
-            Move();
+            CheckIfEnemyIsStationary();
             diceUI.GetComponent<UIDice>().choosingIsDone = false;
-            move = Random.Range(1,7);
+            
         }
         
     }
@@ -62,7 +61,7 @@ public class NPCMove : TactictsMove
         GameObject nearest = null;
         float distance = Mathf.Infinity;
 
-        foreach(GameObject objs in targets)
+        foreach (GameObject objs in targets)
         {
             float d = Vector3.Distance(transform.position, objs.transform.position);
 
@@ -99,5 +98,35 @@ public class NPCMove : TactictsMove
         CheckDeath();
         
 
+    }
+
+    void CheckIfEnemyIsStationary()
+    {
+        if (stationaryEnemy == true)
+        {
+            CheckStationaryRange();
+            
+        }
+        else if (stationaryEnemy == false)
+        {
+            Move();
+            
+        }
+    }
+    void CheckStationaryRange()
+    {
+        FindNearestTarget();
+        float d = Vector3.Distance(transform.position, target.transform.position);
+
+        if (d <= RangeStat)
+        {
+            move = 6;
+            stationaryEnemy = false;
+        }
+        else
+        {
+            move = 0;
+            Move();
+        }
     }
 }

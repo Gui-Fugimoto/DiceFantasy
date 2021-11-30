@@ -234,7 +234,7 @@ public class UIDice : MonoBehaviour
         else if (diceImage2Highlighted.enabled == true)
         {
             valueText2.enabled = false;
-            moveValueInUI = Dice2.GetComponent<Dice>().diceValue;
+            shieldValueInUI = Dice2.GetComponent<Dice>().diceValue;
             diceValue2Used = true;
             diceImage2Highlighted.enabled = false;
             shieldSlot.text = shieldValueInUI.ToString();
