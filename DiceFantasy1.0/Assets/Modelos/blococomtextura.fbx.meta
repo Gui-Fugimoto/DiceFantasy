@@ -3,7 +3,12 @@ guid: 373e53d5af1bdf842b3863de67ccfd37
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grama e bloco
+    second: {fileID: 2100000, guid: c61f6eb5c6560884c946a5db16839f0e, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

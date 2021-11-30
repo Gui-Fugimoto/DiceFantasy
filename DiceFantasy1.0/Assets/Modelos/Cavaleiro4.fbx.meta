@@ -3,7 +3,42 @@ guid: a8c39bedc8a7b1d44bc789fc4f60e571
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Branco.005
+    second: {fileID: 2100000, guid: 3e3bfa6e6b4e8bb41af1cdf1d65d6635, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal.005
+    second: {fileID: 2100000, guid: 24c8532fdc9e0ce40b4b1385d04fd803, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Olho.003
+    second: {fileID: 2100000, guid: d0f420083b0f80247a2e25da236d6634, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pele.001
+    second: {fileID: 2100000, guid: 7f1cb7f92faecb04491a67120ce63b24, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Preto.005
+    second: {fileID: 2100000, guid: 309406e37b9866c40ae8d959de0b56ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vermelho
+    second: {fileID: 2100000, guid: d2e4c88881eeb9849a3e1ea0823a7872, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vermelho.005
+    second: {fileID: 2100000, guid: 4a5715f2b8ebca84bb68231306335dc1, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
