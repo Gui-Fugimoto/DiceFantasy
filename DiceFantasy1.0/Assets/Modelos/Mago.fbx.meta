@@ -3,7 +3,22 @@ guid: faa599bf4ea46b64ab284de79d5dc519
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mago
+    second: {fileID: 2100000, guid: 574d9dc3cffc9b24fb40f1d1ae2c9a1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Preto.005
+    second: {fileID: 2100000, guid: ed8cbfb0064b15e4cad1a79cc5840f1d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RoupaAzul
+    second: {fileID: 2100000, guid: 62560889051aa0447808fd0d3594c548, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

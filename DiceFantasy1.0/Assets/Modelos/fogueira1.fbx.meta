@@ -3,7 +3,32 @@ guid: 806a50e43e911d94eb85b3119f05ecc1
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Marrom Claro tronco.001
+    second: {fileID: 2100000, guid: e6075f96573b1504fa8652731a0d4729, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Marrom Claro tronco.002
+    second: {fileID: 2100000, guid: cffd9a7f8ef750546913f08af5dd7203, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Marrom tronco.001
+    second: {fileID: 2100000, guid: 35875f6e938e03043ac2eca0e1c02866, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Marrom tronco.002
+    second: {fileID: 2100000, guid: c78506c3d9e49694ba57cf9f254f961b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 515b68baec9044e49b812ff2205ab21e, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

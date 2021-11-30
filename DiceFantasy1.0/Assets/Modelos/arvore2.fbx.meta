@@ -3,7 +3,17 @@ guid: e6d61fba0a43789438a8bc1726f1eac3
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Marrom
+    second: {fileID: 2100000, guid: b10ed86417eb6354190b11f5c484c70f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Verde_
+    second: {fileID: 2100000, guid: e4979b08d7606e440a5e86ebe275550b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
