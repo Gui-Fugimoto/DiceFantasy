@@ -7,6 +7,7 @@ public class TurnManager : MonoBehaviour
     public static Dictionary<string,List<TactictsMove>> units= new Dictionary<string, List<TactictsMove>>();
     public static Queue<string> turnKey = new Queue<string>();
     public static Queue<TactictsMove> turnTeam = new Queue<TactictsMove>();
+    private static bool unit;
 
 
     // Start is called before the first frame update
@@ -27,13 +28,19 @@ public class TurnManager : MonoBehaviour
 
     public static void InitTeamTurnQueue()
     {
+        
         List<TactictsMove> teamList = units[(turnKey.Peek())];
 
         foreach(TactictsMove unit in teamList)
         {
-            turnTeam.Enqueue(unit);
+            if( unit ?? null)
+            {
+                turnTeam.Enqueue(unit);
+            }
+           // turnTeam.Enqueue(unit);
         }
-
+        
+        
         StartTurn();
          
     }
