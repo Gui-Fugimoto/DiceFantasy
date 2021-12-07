@@ -127,7 +127,7 @@ public class UIDice : MonoBehaviour
         moveSlot.enabled = false;
         attackSlot.enabled = false;
         shieldSlot.enabled = false;
-        Debug.Log("dotinah");
+        Debug.Log("close HUD");
         diceValue1Used = false;
         diceValue2Used = false;
 

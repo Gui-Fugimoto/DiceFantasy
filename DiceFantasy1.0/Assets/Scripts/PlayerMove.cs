@@ -9,9 +9,12 @@ public class PlayerMove : TactictsMove
     Dice dice;
 
     [SerializeField]
-    UIDice diceUI;
+    Dice BarbarianDice;
     [SerializeField]
-    //UIDiceBarbarian barbarianDiceUI;
+    UIDice diceUI;
+
+    [SerializeField]
+    UIDiceBarbarian diceUIBarbarian;
 
     public GameObject Dice1;
     public GameObject Dice2;
@@ -73,18 +76,18 @@ public class PlayerMove : TactictsMove
             if (!turn)
             {
                 Dice1.GetComponent<Dice>().Reset();// se é o turno do inimigo dado retorna 
-                diceUI.GetComponent<UIDice>().ResetValues();
+                diceUIBarbarian.GetComponent<UIDiceBarbarian>().ResetValues();
                 return;
             }
 
-            if (!moving && dice.hasLanded && diceUI.diceValue1Used == true)
+            if (!moving && BarbarianDice.hasLanded && diceUIBarbarian.diceValue1Used == true)
             {
                 FindSelectableTiles();
-                move = diceUI.GetComponent<UIDice>().moveValueInUI;
-                AttackStat = diceUI.GetComponent<UIDice>().attackValueInUI;
+                move = diceUIBarbarian.GetComponent<UIDiceBarbarian>().moveValueInUI;
+                AttackStat = diceUIBarbarian.GetComponent<UIDiceBarbarian>().attackValueInUI;
                 CheckMouse();
             }
-            else if (dice.hasLanded && diceUI.diceValue1Used == true)
+            else if (BarbarianDice.hasLanded && diceUIBarbarian.diceValue1Used == true)
             {
                 Move();
                 soundsPlayer[0].Play();// sfx movemento
@@ -107,7 +110,7 @@ public class PlayerMove : TactictsMove
     public void TakeDamage()
     {
        // DefineEnemyAttacker();
-        StartCoroutine(WaitAndSee());
+      //  StartCoroutine(WaitAndSee());
         soundsPlayer[1].Play();// sfx dano
        // CheckShieldStat();
        // CurrentHealthStat -= SurplusDamage;
@@ -137,21 +140,21 @@ public class PlayerMove : TactictsMove
     }
 
     
-    private IEnumerator WaitAndSee()
-    {
-        DefineEnemyAttacker();
+    //private IEnumerator WaitAndSee()
+    //{
+    //    DefineEnemyAttacker();
         
-        yield return new WaitForSeconds(0.5f);
-        CheckShieldStat();
+    //    yield return new WaitForSeconds(0.5f);
+    //    CheckShieldStat();
         
-        yield return new WaitForSeconds(0.5f);
-        CurrentHealthStat -= SurplusDamage;
-        Debug.Log("3NPC");
-        yield return new WaitForSeconds(0.5f);
-        CheckDeath();
+    //    yield return new WaitForSeconds(0.5f);
+    //    CurrentHealthStat -= SurplusDamage;
+    //    Debug.Log("3NPC");
+    //    yield return new WaitForSeconds(0.5f);
+    //    CheckDeath();
         
         
-    }
+    //}
 
   
 }

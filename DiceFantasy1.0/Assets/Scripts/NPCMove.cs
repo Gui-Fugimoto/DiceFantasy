@@ -25,20 +25,20 @@ public class NPCMove : TactictsMove
     {
         Debug.DrawRay(transform.position, transform.forward);
 
-        if (!turn && !npcDead)
+        if (!turn && !npcDead && !movedThisTurn)
         {
             enemyTurn.SetActive(false);
             return;
         }
 
-        if (!moving && !npcDead)
+        if (!moving && !npcDead && !movedThisTurn)
         {
-            FindNearestTarget();
+            FindNearestTargetHere();
             CalculatePath();
             FindSelectableTiles();
             actualTargetTile.target = true;
         }
-        else if (!npcDead)
+        else if (!npcDead && !movedThisTurn)
         {
             enemyTurn.SetActive(true);
             CheckIfEnemyIsStationary();
@@ -54,7 +54,7 @@ public class NPCMove : TactictsMove
         FindPath(targetTile);
     }
 
-    void FindNearestTarget()
+    void FindNearestTargetHere()
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
 
@@ -78,7 +78,7 @@ public class NPCMove : TactictsMove
     public void TakeDamage()
     {
         //  DefineEnemyAttacker();
-        StartCoroutine(WaitAndSee());
+       // StartCoroutine(WaitAndSee());
       //  CheckShieldStat();
       // CurrentHealthStat -= SurplusDamage;
       //  CheckDeath();

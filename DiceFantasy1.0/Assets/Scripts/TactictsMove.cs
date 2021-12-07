@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class TactictsMove : MonoBehaviour
 {
-
+    public Animator anim;
+    
     public bool turn = false;
+    public bool movedThisTurn = false;
 
     List<Tile> selectableTiles = new List<Tile>();
     GameObject[] tiles;
@@ -57,7 +59,7 @@ public class TactictsMove : MonoBehaviour
 
     public int Script { get; private set; }
 
-    public bool canSelect;
+    
 
 
     public AudioSource attackSFX;
@@ -109,36 +111,40 @@ public class TactictsMove : MonoBehaviour
 
     public void FindSelectableTiles()
     {
-        ComputeAdjacencyLists(jumpHeight, null);
-        GetCurrentTile();
-
-        Queue<Tile> process = new Queue<Tile>();
-
-        process.Enqueue(currentTile);
-        currentTile.visited = true;
-        //currentTile.parent=? leave as null
-
-        while (process.Count > 0)
+        if (movedThisTurn == false)
         {
-            Tile t = process.Dequeue();
+            ComputeAdjacencyLists(jumpHeight, null);
+            GetCurrentTile();
 
-            selectableTiles.Add(t);
-            t.selectable = true;
+            Queue<Tile> process = new Queue<Tile>();
 
-            if (t.distance < move) //&& diceValue>0)
+            process.Enqueue(currentTile);
+            currentTile.visited = true;
+            //currentTile.parent=? leave as null
+
+            while (process.Count > 0)
             {
-                foreach (Tile tile in t.adjacencyList)
+                Tile t = process.Dequeue();
+
+                selectableTiles.Add(t);
+                t.selectable = true;
+
+                if (t.distance < move) //&& diceValue>0)
                 {
-                    if (!tile.visited)
+                    foreach (Tile tile in t.adjacencyList)
                     {
-                        tile.parent = t;
-                        tile.visited = true;
-                        tile.distance = 1 + t.distance;
-                        process.Enqueue(tile);
+                        if (!tile.visited)
+                        {
+                            tile.parent = t;
+                            tile.visited = true;
+                            tile.distance = 1 + t.distance;
+                            process.Enqueue(tile);
+                        }
                     }
                 }
             }
         }
+        
     }
 
     public void MoveToTile(Tile tile)
@@ -157,7 +163,7 @@ public class TactictsMove : MonoBehaviour
 
     public void Move()
     {
-        if (path.Count > 0)
+        if (path.Count > 0 && movedThisTurn == false)
         {
             Tile t = path.Peek();
             Vector3 target = t.transform.position;
@@ -196,8 +202,9 @@ public class TactictsMove : MonoBehaviour
             CheckRange();
             RemoveSelectableTiles();
             moving = false;
-            TurnManager.EndTurn();
-            
+            movedThisTurn = true;
+           // TurnManager.EndTurn();
+
         }
     }
 
@@ -425,12 +432,12 @@ public class TactictsMove : MonoBehaviour
 
         // what do you do if tha is not path to the target tile?
         Debug.Log("Path not found");
-        TurnManager.EndTurn();
+       // TurnManager.EndTurn();
     }
 
     public void BeginTurn()
     {
-        Debug.Log("dota2");
+        Debug.Log("turnbegin");
         StartCoroutine(DelayBeginTurn());
     }
 
@@ -493,12 +500,13 @@ public class TactictsMove : MonoBehaviour
 
         if (d <= RangeStat)
         {
-            canSelect = true;
+            
             ShowAttackActionHUD();
         }
         else
         {
-            canSelect = false;
+            Debug.Log("nao achou");
+            TurnManager.EndTurn();
         }
     }
 
@@ -511,19 +519,24 @@ public class TactictsMove : MonoBehaviour
     public void AttackAction()
     {
         FindNearestTarget();
-        if (isPlayer == true)
-        {
-            //GameObject target = GameObject.FindGameObjectWithTag("NPC");
-            attackSFX.Play();
-            target.GetComponent<NPCMove>().TakeDamage();
-            
-        }
-        else if (isPlayer == false)
-        {
-            //GameObject target = GameObject.FindGameObjectWithTag("Player");
-            target.GetComponent<PlayerMove>().TakeDamage();
+        gameObject.AddComponent<DealDamage>();
+        target.AddComponent<TakeDamage>();
+        
+        //if (isPlayer == true)
+        //{
+        //    //GameObject target = GameObject.FindGameObjectWithTag("NPC");
+        //    attackSFX.Play();
+        //    target.AddComponent<TakeDamage>();
+        //   // TurnManager.EndTurn();
 
-        }
+        //}
+        //else if (isPlayer == false)
+        //{
+        //    //GameObject target = GameObject.FindGameObjectWithTag("Player");
+        //    target.GetComponent<PlayerMove>().TakeDamage();
+        //   // TurnManager.EndTurn();
+
+        //}
     }
 
 
@@ -549,7 +562,7 @@ public class TactictsMove : MonoBehaviour
             {
                 npcDead = true;
                 level.KilledEnemy();
-                TurnManager.EndTurn();
+              //  TurnManager.EndTurn();
             }
             else if (isPlayer)
             {
@@ -604,7 +617,8 @@ public class TactictsMove : MonoBehaviour
         
         yield return new WaitForSeconds(3f);
         turn = true;
-        Debug.Log("Dota3");
+        movedThisTurn = false;
+        Debug.Log("delayturnbegin");
         
 
     }

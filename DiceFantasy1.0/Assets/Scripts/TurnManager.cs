@@ -33,11 +33,15 @@ public class TurnManager : MonoBehaviour
 
         foreach(TactictsMove unit in teamList)
         {
-            if( unit ?? null)
+            if (unit ?? null)
             {
                 turnTeam.Enqueue(unit);
             }
-           // turnTeam.Enqueue(unit);
+            else
+            {
+              //  turnTeam.Dequeue(unit);
+            }
+                // turnTeam.Enqueue(unit);
         }
         
         
@@ -69,9 +73,20 @@ public class TurnManager : MonoBehaviour
         {
             string team = turnKey.Dequeue();
             turnKey.Enqueue(team);
-            InitTeamTurnQueue();
+            if(unit ?? null)
+            {
+                InitTeamTurnQueue();
+            }
+            
         }
     }
+
+    public void FinalizaTurno()
+    {
+        EndTurn();
+
+    }
+
 
     public static void AddUnit(TactictsMove unit)
     {
