@@ -9,19 +9,9 @@ public class TakeDamage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.GetComponentInChildren<AnimationController>().DamageAnimation();
         Debug.Log("TakeDamageAdicionado");
-       // gameObject.GetComponent<TactictsMove>().EnemyAttackStat = FindObjectOfType<DealDamage>().GetComponent<DealDamage>().MyAttackStat;
-     //   gameObject.GetComponent<TactictsMove>().FindNearestTarget();
         StartCoroutine(TakeDamageCoroutine());
-        //EnemyAttackStat = target.GetComponent<DealDamage>().AttackStat;
-
-        //CheckShieldStat();
-
-        //CurrentHealthStat -= SurplusDamage;
-
-        //CheckDeath();
-
-        //Destroy(this);
     }
 
     // Update is called once per frame
@@ -33,6 +23,7 @@ public class TakeDamage : MonoBehaviour
     private void OnDestroy()
     {
         Destroy(FindObjectOfType<DealDamage>().GetComponent<DealDamage>());
+        gameObject.GetComponentInChildren<AnimationController>().IdleAnimation();
     }
 
     IEnumerator TakeDamageCoroutine()

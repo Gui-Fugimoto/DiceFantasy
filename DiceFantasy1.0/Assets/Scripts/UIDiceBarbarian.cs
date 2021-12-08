@@ -57,7 +57,7 @@ public class UIDiceBarbarian : MonoBehaviour
     {
         dice1Used = Dice1.GetComponent<Dice>().usedDice;
 
-        if (dice1Used == true && tacticts.isPlayer && !nPC.moving && choosingIsDone == false)// usou o dado
+        if (dice1Used == true && tacticts.turn && !nPC.moving && choosingIsDone == false)// usou o dado
         {
 
             throwText.enabled = false;
@@ -67,7 +67,7 @@ public class UIDiceBarbarian : MonoBehaviour
 
         }
 
-        if (!dice1Used && tacticts.isPlayer && !nPC.moving)// não usou o dado
+        if (!dice1Used && tacticts.turn && !nPC.moving)// não usou o dado
         {
             throwText.enabled = true;
             // valueText1.enabled = false;
@@ -76,7 +76,7 @@ public class UIDiceBarbarian : MonoBehaviour
         }
 
 
-        else if (dice1Used == true && HUDisOpen == false && !tacticts.isPlayer && nPC.moving && !playerMoveScript.turn)// turno do npc
+        else if (dice1Used == true && HUDisOpen == false && !tacticts.turn && nPC.moving && !playerMoveScript.turn)// turno do npc
         {
             valueText1.enabled = false;
             throwText.enabled = false;

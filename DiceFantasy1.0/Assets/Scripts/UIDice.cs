@@ -60,6 +60,7 @@ public class UIDice : MonoBehaviour
 
     void Start()
     {
+        throwText.enabled = false;
         CloseChoiceHUD();
     }
     // Update is called once per frame
@@ -68,7 +69,7 @@ public class UIDice : MonoBehaviour
         dice1Used = Dice1.GetComponent<Dice>().usedDice;
         dice2Used = Dice2.GetComponent<Dice>().usedDice;
 
-        if (dice1Used == true && dice2Used == true && tacticts.isPlayer && !nPC.moving && choosingIsDone == false)// usou o dado
+        if (dice1Used == true && dice2Used == true && tacticts.turn && !nPC.moving && choosingIsDone == false)// usou o dado
         {
             
             throwText.enabled = false;
@@ -79,7 +80,7 @@ public class UIDice : MonoBehaviour
 
         }
 
-        if (!dice1Used && !dice2Used && tacticts.isPlayer && !nPC.moving)// não usou o dado
+        if (!dice1Used && !dice2Used && tacticts.turn && !nPC.moving)// não usou o dado
         {
             throwText.enabled = true;
            // valueText1.enabled = false;
@@ -88,7 +89,7 @@ public class UIDice : MonoBehaviour
         }
 
 
-        else if (dice1Used == true && dice2Used == true && HUDisOpen == false && !tacticts.isPlayer && nPC.moving && !playerMoveScript.turn)// turno do npc
+        else if (dice1Used == true && dice2Used == true && HUDisOpen == false && !tacticts.turn && nPC.moving && !playerMoveScript.turn)// turno do npc
         {
             valueText1.enabled = false;
             valueText2.enabled = false;
@@ -108,6 +109,7 @@ public class UIDice : MonoBehaviour
         moveSlot.enabled = true;
         attackSlot.enabled = true;
         shieldSlot.enabled = true;
+
 
         diceButton1.SetActive(true);
         diceButton2.SetActive(true);
