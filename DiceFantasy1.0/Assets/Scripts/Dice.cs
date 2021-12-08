@@ -21,6 +21,7 @@ public class Dice : MonoBehaviour
     public bool usedDice;
 
     public GameObject diceCam;
+    public GameObject PlayerGameObject;
 
     void Start()
     {
@@ -35,27 +36,31 @@ public class Dice : MonoBehaviour
     }
     void Update()
     {
-       if(Input.GetKeyDown(KeyCode.Space) && (usedDice == false))
-       { 
-            RollDice();
-            //diceCam.SetActive(true);
-       }
+        if (usedDice == false && PlayerGameObject.GetComponent<TactictsMove>().turn == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && (usedDice == false))
+            {
+                RollDice();
+                //diceCam.SetActive(true);
+            }
 
-       if(rb.IsSleeping() && !hasLanded && thrown)
-       {
-            hasLanded = true;
-            rb.useGravity = false;
-            rb.isKinematic = true;
+            if (rb.IsSleeping() && !hasLanded && thrown)
+            {
+                hasLanded = true;
+                rb.useGravity = false;
+                rb.isKinematic = true;
 
-            SideValueCheck();
+                SideValueCheck();
 
-            diceCam.SetActive(false);
+                diceCam.SetActive(false);
+            }
+            else if (rb.IsSleeping() && hasLanded && diceValue == 0)
+            {
+                RollAgain();
+                diceCam.SetActive(true);
+            }
         }
-       else if(rb.IsSleeping() && hasLanded && diceValue == 0)
-       {
-            RollAgain();
-            diceCam.SetActive(true);
-       }
+       
     }
 
     public void RollDice()

@@ -1910,6 +1910,7 @@ MonoBehaviour:
   - {fileID: 1208229555}
   usedDice: 0
   diceCam: {fileID: 1188782582}
+  PlayerGameObject: {fileID: 289223705}
 --- !u!65 &37668001
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10452,7 +10453,9 @@ MonoBehaviour:
   level: {fileID: 289223711}
   attackSFX: {fileID: 218466194}
   dice: {fileID: 1372065626}
+  BarbarianDice: {fileID: 0}
   diceUI: {fileID: 985519671}
+  diceUIBarbarian: {fileID: 0}
   Dice1: {fileID: 1372065622}
   Dice2: {fileID: 37667999}
   soundsPlayer:
@@ -47779,6 +47782,7 @@ MonoBehaviour:
   - {fileID: 834398964}
   usedDice: 0
   diceCam: {fileID: 1188782582}
+  PlayerGameObject: {fileID: 289223705}
 --- !u!54 &1372065627
 Rigidbody:
   m_ObjectHideFlags: 0
