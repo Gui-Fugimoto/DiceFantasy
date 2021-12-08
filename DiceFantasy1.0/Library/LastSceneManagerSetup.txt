@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/TTBRPG 2.unity
+- path: Assets/Scenes/TTBRPG.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
