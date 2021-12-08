@@ -55,7 +55,7 @@ public class PlayerMove : TactictsMove
                 return;
             }
 
-            if (!moving && dice.hasLanded && diceUI.choosingIsDone == true)
+            if (!moving && dice.hasLanded && diceUI.choosingIsDone == true && diceUI.HUDisOpen == false)
             {
                 FindSelectableTiles();
                 move = diceUI.GetComponent<UIDice>().moveValueInUI;
@@ -80,7 +80,7 @@ public class PlayerMove : TactictsMove
                 return;
             }
 
-            if (!moving && BarbarianDice.hasLanded && diceUIBarbarian.choosingIsDone == true)
+            if (!moving && BarbarianDice.hasLanded && diceUIBarbarian.choosingIsDone == true && diceUIBarbarian.HUDisOpen == false)
             {
                 Debug.Log("Barbaro pode andar");
                 FindSelectableTiles();

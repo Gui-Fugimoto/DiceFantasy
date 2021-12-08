@@ -108,6 +108,7 @@ public class UIDiceBarbarian : MonoBehaviour
         attackSlot.enabled = false;
         Debug.Log("close HUD");
         diceValue1Used = false;
+        
 
         diceImage1Highlighted.enabled = false;
         diceButton1.SetActive(false);
@@ -119,6 +120,7 @@ public class UIDiceBarbarian : MonoBehaviour
         moveValueInUI = 0;
         attackSlot.text = attackValueInUI.ToString();
         moveSlot.text = moveValueInUI.ToString();
+        choosingIsDone = false;
 
     }
 
