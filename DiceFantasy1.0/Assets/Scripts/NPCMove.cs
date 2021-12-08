@@ -129,4 +129,5 @@ public class NPCMove : TactictsMove
             Move();
         }
     }
+
 }

@@ -432,7 +432,7 @@ public class TactictsMove : MonoBehaviour
 
         // what do you do if tha is not path to the target tile?
         Debug.Log("Path not found");
-       // TurnManager.EndTurn();
+        TurnManager.EndTurn();
     }
 
     public void BeginTurn()
@@ -567,6 +567,7 @@ public class TactictsMove : MonoBehaviour
             else if (isPlayer)
             {
                 playerLost = true;
+                FindObjectOfType<EndUI>().GetComponent<EndUI>().GameOver();
             }
             DeactivateDeadEnemy();
             //Destroy(gameObject);
