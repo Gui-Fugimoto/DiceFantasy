@@ -80,14 +80,15 @@ public class PlayerMove : TactictsMove
                 return;
             }
 
-            if (!moving && BarbarianDice.hasLanded && diceUIBarbarian.diceValue1Used == true)
+            if (!moving && BarbarianDice.hasLanded && diceUIBarbarian.choosingIsDone == true)
             {
+                Debug.Log("Barbaro pode andar");
                 FindSelectableTiles();
-                move = diceUIBarbarian.GetComponent<UIDiceBarbarian>().moveValueInUI;
-                AttackStat = diceUIBarbarian.GetComponent<UIDiceBarbarian>().attackValueInUI;
+                move = diceUIBarbarian.GetComponent<UIDiceBarbarian>().moveValueInUI * 2;
+                AttackStat = diceUIBarbarian.GetComponent<UIDiceBarbarian>().attackValueInUI * 2;
                 CheckMouse();
             }
-            else if (BarbarianDice.hasLanded && diceUIBarbarian.diceValue1Used == true)
+            else if (BarbarianDice.hasLanded && diceUIBarbarian.choosingIsDone == true)
             {
                 Move();
                 soundsPlayer[0].Play();// sfx movemento

@@ -318,8 +318,10 @@ MonoBehaviour:
   playerLost: 0
   level: {fileID: 2159639}
   attackSFX: {fileID: 218466194}
-  dice: {fileID: 1425409224}
-  diceUI: {fileID: 985519671}
+  dice: {fileID: 0}
+  BarbarianDice: {fileID: 1425409224}
+  diceUI: {fileID: 0}
+  diceUIBarbarian: {fileID: 54173426}
   Dice1: {fileID: 1425409222}
   Dice2: {fileID: 0}
   soundsPlayer:
@@ -1227,6 +1229,7 @@ MonoBehaviour:
   - {fileID: 1208229555}
   usedDice: 0
   diceCam: {fileID: 1188782582}
+  PlayerGameObject: {fileID: 289223705}
 --- !u!65 &37668001
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6951,7 +6954,9 @@ MonoBehaviour:
   level: {fileID: 289223711}
   attackSFX: {fileID: 218466194}
   dice: {fileID: 1372065626}
+  BarbarianDice: {fileID: 0}
   diceUI: {fileID: 985519671}
+  diceUIBarbarian: {fileID: 0}
   Dice1: {fileID: 1372065622}
   Dice2: {fileID: 37667999}
   soundsPlayer:
@@ -26580,7 +26585,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 54173426}
         m_MethodName: ClickToChooseDiceValue1
         m_Mode: 1
         m_Arguments:
@@ -42124,6 +42129,7 @@ MonoBehaviour:
   - {fileID: 834398964}
   usedDice: 0
   diceCam: {fileID: 1188782582}
+  PlayerGameObject: {fileID: 289223705}
 --- !u!54 &1372065627
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -43652,6 +43658,7 @@ MonoBehaviour:
   - {fileID: 1912913536}
   usedDice: 0
   diceCam: {fileID: 1280129820}
+  PlayerGameObject: {fileID: 2159638}
 --- !u!65 &1425409225
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -57006,7 +57013,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 54173426}
         m_MethodName: ClickToChooseMoveValue
         m_Mode: 1
         m_Arguments:
@@ -57347,7 +57354,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 54173426}
         m_MethodName: ClickToChooseAttackValue
         m_Mode: 1
         m_Arguments:
