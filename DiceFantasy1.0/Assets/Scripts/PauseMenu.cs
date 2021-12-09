@@ -10,6 +10,8 @@ public class PauseMenu : MonoBehaviour
 
     public bool isPaused;
 
+    public string menuScene;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,10 +51,16 @@ public class PauseMenu : MonoBehaviour
         lvlSong.Play();
     }
 
-    public void GoToMenu()
+    public void GToMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Menu");
+        Debug.Log("Go to Menu");
+        SceneManager.LoadScene(menuScene);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     //public void QuitGame()
